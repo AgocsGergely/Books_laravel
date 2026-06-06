@@ -11,7 +11,8 @@ class SeriesController extends Controller
      */
     public function index()
     {
-        //
+        $series = \App\Models\Series::all();
+        return view('series.index', compact('series'));
     }
 
     /**
@@ -19,7 +20,7 @@ class SeriesController extends Controller
      */
     public function create()
     {
-        //
+        return view('series.create');
     }
 
     /**
@@ -27,7 +28,15 @@ class SeriesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate(['name' => 'required|min:2|max:255',], ['name.required' => 'A név megadása kötelező!', 'name.min' => 'A név legalább 2 karakter hosszú kell legyen!', 'name.max' => 'A név maximum 255 karakter hosszú lehet!',]);
+
+        $serie = new \App\Models\Series();
+        $serie->name = $request->name;
+        $serie->save();
+
+        return redirect()->route('series.index')->with('success', 'Sorozat sikeresen létrehozva!');
+
+
     }
 
     /**
@@ -35,7 +44,8 @@ class SeriesController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $serie = \App\Models\Series::find($id);
+        return view('series.show', compact('serie'));
     }
 
     /**
@@ -43,7 +53,8 @@ class SeriesController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $serie = \App\Models\Series::find($id);
+        return view('series.edit', compact('serie'));
     }
 
     /**
@@ -51,7 +62,13 @@ class SeriesController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate(['name' => 'required|min:2|max:255',], ['name.required' => 'A név megadása kötelező!', 'name.min' => 'A név legalább 2 karakter hosszú kell legyen!', 'name.max' => 'A név maximum 255 karakter hosszú lehet!',]);
+
+        $serie = \App\Models\Series::find($id);
+        $serie->name = $request->name;
+        $serie->save();
+
+        return redirect()->route('series.index')->with('success', 'Sorozat sikeresen módosítva!');
     }
 
     /**
@@ -59,6 +76,9 @@ class SeriesController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $serie = \App\Models\Series::find($id);
+        $serie->delete();
+
+        return redirect()->route('series.index')->with('success', 'Sorozat sikeresen törölve!');
     }
 }

@@ -22,8 +22,8 @@ return new class extends Migration
             $table->integer("release_year");
             $table->text("description");
             $table->foreign("category_id")->references("id")->on("category")->onDelete("restrict");
-            $table->foreign("author_id")->references("id")->on("author")->onDelete("restrict");
-            $table->foreign("publisher_id")->references("id")->on("publisher")->onDelete("restrict");
+            $table->foreign("author_id")->references("id")->on("authors")->onDelete("restrict");
+            $table->foreign("publisher_id")->references("id")->on("publishers")->onDelete("restrict");
             $table->foreign("series_id")->references("id")->on("series")->onDelete("set null");
             $table->timestamps();
         });

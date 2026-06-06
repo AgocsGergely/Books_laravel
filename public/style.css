@@ -1,0 +1,355 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --dark: #260a33;
+    --medium: #631a86;
+    --medium-light: #9927ce;
+    --light: #ffe9ce;
+    --danger: #ffe156;
+    --danger-dark: #ff9f1c;
+}
+
+body {
+    background-color: #99afff;
+    background-image: radial-gradient(
+            at 49% 43%,
+            hsla(169, 65%, 62%, 1) 0px,
+            transparent 50%
+        ),
+        radial-gradient(at 10% 73%, rgb(177, 142, 110) 0px, transparent 50%),
+        radial-gradient(at 56% 66%, rgb(247, 110, 100) 0px, transparent 50%),
+        radial-gradient(at 65% 6%, rgb(222, 213, 89) 0px, transparent 50%),
+        radial-gradient(at 88% 77%, rgb(156, 89, 77) 0px, transparent 50%),
+        radial-gradient(at 3% 25%, rgb(255, 180, 41) 0px, transparent 50%),
+        radial-gradient(at 40% 37%, hsla(3, 75%, 69%, 1) 0px, transparent 50%);
+    min-height: 100dvh;
+    line-height: 1.2em;
+    font-size: 120%;
+}
+
+body,
+input {
+    font-family: "Quicksand", sans-serif;
+}
+
+header{
+    margin: 0 auto;
+    max-width: 60em;
+}
+
+main,
+footer {
+    padding: 1em;
+    max-width: 60em;
+    margin: 0 auto;
+}
+
+header,
+footer {
+    min-height: 10vh;
+}
+main {
+    min-height: 80vh;
+    box-shadow: 0.5em 0.5em 0.5em rgba(0, 0, 0, 0.5);
+}
+
+main {
+    background: var(--dark);
+    color: #fff;
+    border-radius: 0.5em;
+}
+
+h1 {
+    margin: 1em 0;
+}
+ul {
+    list-style: none;
+}
+a {
+    text-decoration: none;
+}
+
+/* forms */
+fieldset {
+    border: none;
+    display: grid;
+    grid-template-columns: 1fr 3fr 2fr;
+    margin-bottom: 0.5em;
+}
+input,
+button,
+select,
+.button {
+    font-size: 1rem;
+    padding: 0.25em;
+    border: none;
+    border-radius: 0.5em;
+    color: var(--dark);
+}
+button,
+.button {
+    padding: 0.5em 2em;
+    font-weight: bold;
+    background-color: var(--medium);
+    color: #fff;
+    transition: background-color 350ms ease-in-out;
+}
+button:hover,
+.button:hover {
+    background-color: var(--medium-light);
+}
+label {
+    margin: 0 1em 0 0;
+}
+textarea {
+    height: 5rem;
+}
+
+/* header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+header img {
+    height: 5vh;
+    padding: 0.25em;
+    background-color: #fff;
+    border-radius: 50%;
+}
+header ul {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+header li {
+    margin: 0 0 0 1em;
+}
+header a {
+    color: #fff;
+    font-weight: bold;
+}
+
+/* main */
+main a {
+    color: var(--light);
+}
+
+/* footer */
+footer {
+    text-align: center;
+}
+
+/* actions */
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    margin: 0.5em 0;
+}
+.danger {
+    background-color: var(--danger);
+    color: var(--dark);
+}
+.danger:hover {
+    background-color: var(--danger-dark);
+}
+
+/* alerts */
+.alert {
+    font-family: Poppins, sans-serif;
+    background-color: var(--light);
+    color: var(--dark);
+    padding: 1em;
+    border-radius: 0.5em;
+    margin: 1em 0;
+}
+.alert-warning::before {
+    content: "⚠️";
+    margin-right: 0.5em;
+}
+.alert-success::before {
+    content: "✅";
+    margin-right: 0.5em;
+}
+
+.tags {
+    list-style: none;
+    display: flex;
+    gap: 1em;
+    margin: 0.5em;
+}
+.tags li {
+    background-color: var(--light);
+    color: var(--dark);
+    padding: 0.25em 0.5em;
+    border-radius: 0.5em;
+}
+
+#paginator {
+    margin: 3em auto 1em auto;
+    width: fit-content;
+    text-align: center;
+}
+#paginator svg {
+    width: 1em;
+    height: 1em;
+    margin: 0 0.5em;
+    cursor: pointer;
+}
+.create-icon {
+    font-size: 0.75em;
+    margin-left: 0.5em;
+    color: var(--medium);
+    float: right;
+}
+/* ========================================== */
+/* 1. Navbar Base Container                   */
+/* ========================================== */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+            /* Removed vertical padding to control height strictly */
+    background-color: transparent;
+    height: 60px;               /* Defined explicit height for perfect matching */
+}
+
+.navbar .logo a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+/* Container bundling the sliding menu and the button together */
+.nav-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+    height: 100%;               /* Forces container to match navbar height */
+}
+
+/* ========================================== */
+/* 2. Hamburger Button & Bars                 */
+/* ========================================== */
+.hamburger {
+    display: flex; 
+    cursor: pointer;
+    background: none;
+    border: none;
+    border-radius: 0.5em;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    z-index: 100;
+    height: 100%;               /* Height matches navbar exactly */
+    padding: 0 15px;            /* Horizontal padding only */
+    box-sizing: border-box;
+    background-color: rgb(32,10,50);
+}
+
+.bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    transition: 0.3s ease-in-out;
+}
+
+/* ========================================== */
+/* 3. Horizontal Sliding Menu (Hidden State)  */
+/* ========================================== */
+.nav-menu {
+    display: flex;             
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    background-color: rgb(32,10,50);
+    border-radius: 4px;
+    align-items: center;
+    height: 100%;               /* Height matches navbar exactly */
+    box-sizing: border-box;
+    
+    /* Absolute tracking relative to the button container */
+    position: absolute;
+    left: 60px;                /* Adjusted to sit cleanly past the padded button */
+    top: 0;                     /* Aligns flush with the top of the navbar */
+    
+    /* Sliding Animation Properties */
+    width: 0;                  /* Starts completely collapsed */
+    overflow: hidden;          /* Hides text while sliding */
+    opacity: 0;                /* Invisible when closed */
+    white-space: nowrap;       /* Prevents text wrapping while expanding */
+    transition: width 0.4s ease-in-out, opacity 0.3s ease-in-out;
+    z-index: 99;
+}
+
+.nav-menu li {
+    display: inline-block;
+    height: 100%;               /* Forces list items to span full height */
+}
+
+.nav-menu a {
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;        /* Centers text vertically */
+    height: 100%;               /* Spans full height of the menu */
+    padding: 0 1.2rem;          /* Generous padding for breathing room */
+    transition: background-color 0.2s;
+    box-sizing: border-box;
+}
+
+.nav-menu a:hover {
+    background-color: var(--medium-light);
+}
+
+/* ========================================== */
+/* 4. Active States (Toggled via JavaScript)   */
+/* ========================================== */
+
+/* Using max-width here allows the element to expand dynamically to fit 
+   all contents perfectly without cutting text off on any browser screen.
+*/
+.nav-menu.active {
+    width: auto; /* Increased size to guarantee all 5 options fit comfortably */
+    opacity: 1; 
+    border-radius: 16px; /* Adds the rounded corners */
+}
+
+/* Smoothly animates the 3 bars into an 'X' close icon */
+.hamburger.toggle .bar:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+
+.hamburger.toggle .bar:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.toggle .bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+.btn-edit-show {
+    display: inline-block;     /* 1. Allows the link to behave like a button block */
+    padding: 10px 20px;        /* 2. Moves padding here so the *entire* area becomes clickable */
+    background-color: #3498db; /* Your button color */
+    color: white;              
+    text-decoration: none;     
+    border-radius: 8px;        /* Our rounded edges */
+    
+    /* Center the icon perfectly inside */
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* Optional hover effect */
+.btn-edit-show:hover {
+    background-color: #2980b9;
+}

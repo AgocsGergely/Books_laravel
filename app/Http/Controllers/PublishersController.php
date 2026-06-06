@@ -11,7 +11,8 @@ class PublishersController extends Controller
      */
     public function index()
     {
-        //
+        $publishers = \App\Models\Publisher::all();
+        return view('publishers.index', compact('publishers'));
     }
 
     /**
@@ -19,7 +20,7 @@ class PublishersController extends Controller
      */
     public function create()
     {
-        //
+        return view('publishers.create');
     }
 
     /**
@@ -27,7 +28,13 @@ class PublishersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate(['name' => 'required|min:2|max:255',], ['name.required' => 'A név megadása kötelező!', 'name.min' => 'A név legalább 2 karakter hosszú kell legyen!', 'name.max' => 'A név maximum 255 karakter hosszú lehet!',]);
+
+        $publisher = new \App\Models\Publisher();
+        $publisher->name = $request->name;
+        $publisher->save();
+
+        return redirect()->route('publishers.index')->with('success', 'Kiadó sikeresen létrehozva!');
     }
 
     /**
@@ -35,7 +42,8 @@ class PublishersController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $publisher = \App\Models\Publisher::find($id);
+        return view('publishers.show', compact('publisher'));
     }
 
     /**
@@ -43,7 +51,8 @@ class PublishersController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $publisher = \App\Models\Publisher::find($id);
+        return view('publishers.edit', compact('publisher'));
     }
 
     /**
@@ -51,7 +60,13 @@ class PublishersController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate(['name' => 'required|min:2|max:255',], ['name.required' => 'A név megadása kötelező!', 'name.min' => 'A név legalább 2 karakter hosszú kell legyen!', 'name.max' => 'A név maximum 255 karakter hosszú lehet!',]);
+
+        $publisher = \App\Models\Publisher::find($id);
+        $publisher->name = $request->name;
+        $publisher->save();
+
+        return redirect()->route('publishers.index')->with('success', 'Kiadó sikeresen módosítva!');
     }
 
     /**
@@ -59,6 +74,9 @@ class PublishersController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $publisher = \App\Models\Publisher::find($id);
+        $publisher->delete();
+
+        return redirect()->route('publishers.index')->with('success', 'Kiadó sikeresen törölve!');
     }
 }

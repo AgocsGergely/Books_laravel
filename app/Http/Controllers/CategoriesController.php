@@ -11,7 +11,8 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        //
+        $categories = \App\Models\Category::all();
+        return view('categories.index', compact('categories'));
     }
 
     /**
@@ -19,7 +20,7 @@ class CategoriesController extends Controller
      */
     public function create()
     {
-        //
+        return view('categories.create');
     }
 
     /**
@@ -27,7 +28,15 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate(['name' => 'required|min:2|max:255',], ['name.required' => 'A név megadása kötelező!', 'name.min' => 'A név legalább 2 karakter hosszú kell legyen!', 'name.max' => 'A név maximum 255 karakter hosszú lehet!',]);
+
+        $category = new \App\Models\Category();
+        $category->name = $request->name;
+        $category->save();
+
+        return redirect()->route('categories.index')->with('success', 'Kategória sikeresen létrehozva!');
+
+
     }
 
     /**
@@ -35,7 +44,8 @@ class CategoriesController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $category = \App\Models\Category::find($id);
+        return view('categories.show', compact('category'));
     }
 
     /**
@@ -43,7 +53,8 @@ class CategoriesController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $category = \App\Models\Category::find($id);
+        return view('categories.edit', compact('category'));
     }
 
     /**
@@ -51,7 +62,13 @@ class CategoriesController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate(['name' => 'required|min:2|max:255',], ['name.required' => 'A név megadása kötelező!', 'name.min' => 'A név legalább 2 karakter hosszú kell legyen!', 'name.max' => 'A név maximum 255 karakter hosszú lehet!',]);
+
+        $category = \App\Models\Category::find($id);
+        $category->name = $request->name;
+        $category->save();
+
+        return redirect()->route('categories.index')->with('success', 'Kategória sikeresen módosítva!');
     }
 
     /**
@@ -59,6 +76,9 @@ class CategoriesController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $category = \App\Models\Category::find($id);
+        $category->delete();
+
+        return redirect()->route('categories.index')->with('success', 'Kategória sikeresen törölve!');
     }
 }
